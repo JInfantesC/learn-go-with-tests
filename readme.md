@@ -207,3 +207,32 @@ Podemos obtener un slices de otro slice con nombreSlice[low:high]
 chars:=[]string{"a","b","c"}
 charsSliced := chars[1:] // "b","c"
 ```
+
+## Structs, methods & interfaces
+
+Podemos crear estructuras que tengan varias variables asociadas. Podemos asignar métodos a estas variables declarando una función e indicando a que estructura se asocia.
+```go
+type Rectangle struct {
+	Width  float64
+	Height float64
+}
+func (r Rectangle) Perimeter() float64 {
+	return 2 * (r.Width + r.Height)
+}
+
+rectangle := Rectangle{10.0, 10.0}
+rectangle := Rectangle{Width: 12, Height: 6}
+
+perimetro := rectangle.Perimeter()
+```
+
+Las interfaces nos permiten crear funciones asociadas a distintos tipos.
+
+```go
+type Shape interface {
+    Perimeter() float64
+}
+```
+¿Como se transforma `Rectangle` en `Shape`?
+Creamos un nuevo tipo `Shape` pero declarándolo como `interface` en vez de `struct`. Normalmente tendrias que escribir que `Rectangle` implementa `Shape` pero en Go no.
+En nuestro caso, `Rectangle` tiene un método con el nombre `Permiter` que devuelve un `float64`, por lo tanto es un `Shape` y ya quedan asociados.
